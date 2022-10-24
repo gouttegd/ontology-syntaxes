@@ -1,0 +1,287 @@
+% \iffalse
+%
+% Copyright (C) 2022 Damien Goutte-Gattat
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of the license or
+% (at your option) any later version. The latest version of this license
+% is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2003/12/01 or later.
+%
+% This work has the LPPL maintenance status "maintained".
+%
+% The Current Maintainer of this work is Damien Goutte-Gattat
+% <dpg44@cam.ac.uk>.
+%
+% This work consists of the file lstontology.dtx, and all files
+% generated from it.
+%
+%<*batchfile>
+\begingroup
+\input docstrip
+\keepsilent
+\askforoverwritefalse
+\preamble
+
+Copyright (C) 2022 Damien Goutte-Gattat
+
+This file is part of a work distributed under the conditions of the
+LaTeX Project Public License. See the source file from which this file
+has been generated for details.
+
+\endpreamble
+
+\generate{
+  \file{lstontology.sty}{\from{lstontology.dtx}{package}}
+}
+\endgroup
+%</batchfile>
+%
+%<*driver>
+\ProvidesFile{lstontology.dtx}[2022/10/23 v0.1 Ontology language definitions]
+\documentclass[a4paper]{ltxdoc}
+\usepackage{hyperref}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{lstontology.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \changes{0.1}{2022/10/23}{Initial version.}
+%
+% \GetFileInfo{lstontology.dtx}
+%
+% \title{^^A
+%   The \textsc{lstontology} package\thanks{^^A
+%   This file has version number \fileversion, last revised \filedate.}}
+% \author{^^A
+%   Damien Goutte-Gattat\thanks{^^A
+%   Department of Physiology, Development and Neuroscience,
+%   University of Cambridge, Downing Street, Cambridge CB2 3DY, United
+%   Kindom}\\
+%   \texttt{dpg44@cam.ac.uk}}
+% \date{\filedate}
+%
+% \maketitle
+%
+% \tableofcontents
+%
+% \section{Introduction}
+%
+% This package provides language definitions for some ontology-related
+% languages, to be used with \LaTeX's |listings| package.
+%
+% Currently, the following languages are supported:
+%
+% \begin{itemize}
+%   \item Turtle (Terse RDF Triple Language) (\texttt{language=Turtle});
+%   \item OWL Functional Syntax (\texttt{language=OWLFun});
+%   \item OBO Flat File Format (\texttt{language=OBO}).
+% \end{itemize}
+%
+%
+% \section{Setup}
+%
+% The package obviously requires the |listings| package. Beyond that, it
+% should work on any \LaTeXe{} installation.
+%
+% The provided Makefile can be used to generate the package along with
+% this documentation. Once generated, the file |lstontology.sty| should
+% be copied into a directory searched by \LaTeXe. The \emph{install}
+% target automatically places all files into a suitable tree ready to be
+% copied.
+%
+% With the packaged installed, simply load it with:
+%
+% \begin{verbatim}
+% \usepackage{lstontology}
+% \end{verbatim}
+%
+% This will automatically load the |listing| package as well. Then you
+% can use the environments and macros of the |listing| package as usual,
+% setting the \texttt{language} key to one of the supported languages.
+%
+%
+% \StopEventually{\PrintChanges}
+%
+% \section{The code}
+%
+% \subsection{Initialization}.
+% We start by identifying the package.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}[2003/12/01]
+\ProvidesPackage{lstontology}[2022/10/23 v0.1 Ontology language definitions]
+%    \end{macrocode}
+%
+% We load the |listings| package, on which this package is based.
+%    \begin{macrocode}
+\RequirePackage{listings}
+%    \end{macrocode}
+%
+% \subsection{Language definition for Turtle}
+%
+% The \href{https://www.w3.org/TR/turtle/}{Turtle language} is intended
+% as a compact and natural-looking serialization of RDF triples.
+%
+% The definition has the following limitations:
+% \begin{itemize}
+%   \item It does not recognize (and therefore allow to distinguish)
+%   prefixes and compact IRIs.
+%   \item It does not recognize language tags (such as |@en|) and type
+%   tags (such as |\^\^xsd:string|).
+% \end{itemize}
+%
+%    \begin{macrocode}
+\lstdefinelanguage{Turtle}{%
+%    \end{macrocode}
+%
+% There's only a handful of actual keywords in Turtle:
+%    \begin{macrocode}
+morekeywords={@base,@prefix,a},%
+%    \end{macrocode}
+%
+% A \# character starts a comment, except when the character occurs
+% inside a IRI. That case is taken care of by the |moredelim| key
+% defined later.
+%    \begin{macrocode}
+morecomment=[l]{\#},%
+%    \end{macrocode}
+%
+% Strings are classically delimited by double-quotes.
+%    \begin{macrocode}
+morestring=[b]",%
+%    \end{macrocode}
+%
+% IRIs are enclosed within angled brackets. We give them the same style
+% as identifiers, since that's what they are.
+%    \begin{macrocode}
+moredelim=[s][identifierstyle]{<}{>},%
+%    \end{macrocode}
+%
+% We need the |keywords|, |comments|, and |strings| aspects.
+%    \begin{macrocode}
+}[keywords,comments,strings]
+%    \end{macrocode}
+%
+%
+% \subsection{Language definition for OWL Functional Syntax}
+%
+% The \href{https://www.w3.org/TR/owl2-syntax/}{Functional Syntax} is
+% one of the concrete syntax used to represent OWL2 ontologies.
+%
+% The definition shares the same limitations as the definition for the
+% \emph{Turtle} syntax above.
+%
+%    \begin{macrocode}
+\lstdefinelanguage{OWLFun}{%
+%    \end{macrocode}
+%
+% We define all the keywords listed in specification of the OWL
+% Functional Syntax:
+%    \begin{macrocode}
+morekeywords={Prefix,Ontology,Import,Declaration,Class,Datatype,%
+ObjectProperty,DataProperty,AnnotationProperty,NamedInvididual,%
+Annotation,AnnotationAssertion,SubAnnotationPropertyOf,%
+AnnotationPropertyDomain,AnnotationPropertyRange,ObjectInverseOf,%
+DataIntersectionOf,DataUnionOf,DataComplementOf,DataOneOf,%
+DatatypeRestriction,ObjectIntersectionOf,ObjectUnionOf,%
+ObjectComplementOf,ObjectOneOf,ObjectSomeValuesFrom,%
+ObjectAllValuesFrom,ObjectHasValue,ObjectHasSelf,ObjectMinCardinality,%
+ObjectMaxCardinality,ObjectExactCardinality,DataSomeValuesFrom,%
+DataAllValuesFrom,DataHasValue,DataMinCardinality,DataMaxCardinality,%
+DataExactCardinality,SubClassOf,EquivalentClasses,DisjointClasses,%
+DisjointUnion,DatatypeDefinition,HasKey,SubObjectPropertyOf,%
+ObjectPropertyChain,EquivalentObjectProperties,
+DisjointObjectProperties,ObjectPropertyDomain,ObjectPropertyRange,%
+InverseObjectProperties,FunctionalObjectProperty,%
+InverseFunctionalObjectProperty,ReflexiveObjectProperty,%
+IrreflexiveObjectProperty,SymmetricObjectProperty,%
+AsymmetricObjectProperty,TransitiveObjectProperty,SubDataPropertyOf,%
+EquivalentDataProperties,DisjointDataProperties,DataPropertyDomain,%
+DataPropertyRange,FunctionalDataProperty,SameIndividual,%
+DifferentIndividuals,ClassAssertion,ObjectPropertyAssertion,%
+NegativeObjectPropertyAssertion,DataPropertyAssertion,%
+NegativeDataPropertyAssertion},%
+%    \end{macrocode}
+%
+% Apart from the keywords, the definition is similar to that of the
+% Turtle syntax: comments start with a \# character, strings are
+% delimited by double quotes, and IRIs are delimited by angled brackets.
+%    \begin{macrocode}
+morecomment=[l]{\#},%
+morestring=[b]",%
+moredelim=[s][identifierstyle]{<}{>},%
+}[keywords,comments,strings]
+%    \end{macrocode}
+%
+%
+% \subsection{Language definition for the OBO Flat File format}
+%
+% The
+% \href{http://owlcollab.github.io/oboformat/doc/obo-syntax.html}{OBO
+% Flat File Format} was the format used by the OBO-Edit ontology editor.
+% It is mapped to the OWL2 model and is still used by many ontologies of
+% the OBO Foundry.
+%
+%    \begin{macrocode}
+\lstdefinelanguage{OBO}{%
+%    \end{macrocode}
+%
+% Many OBO tags (especially those expected in the header frame) contain
+% a dash character, so we need to consider that character as a digit for
+% those keywords to be recognized.
+%    \begin{macrocode}
+alsodigit={-},%
+%    \end{macrocode}
+%
+% We list all the OBO tags as keywords. They should only be recognized
+% at the beginning of a line, but there does not seem to be a way to
+% specify that with |listing|.
+%    \begin{macrocode}
+morekeywords={format-version,data-version,version,ontology,date,%
+saved-by,auto-generated-by,subsetdef,import,synonymtypedef,idspace,%
+default-relationship-id-prefix,id-mapping,remark,%
+treat-xref-as-equivalent,treat-xref-as-genus-differentia,%
+treat-xref-as-relationship,treat-xref-as-is_a,%
+relax-unique-identifier-assumption-for-namespace,namespace,%
+relax-unique-label-assumption-for-namespace,default-namespace,id,name,%
+is_anonymous,alt_id,def,comment,subset,synonym,exact_synonym,%
+narrow_synonym,broad_synonym,xref,xref_analog,xref_unk,is_a,%
+intersection_of,union_of,disjoint_from,relationship,is_obsolete,%
+replaced_by,consider,use_term,builtin,created_by,creation_date,%
+property_value,domain,range,inverse_of,transitive_over,is_cyclic,%
+is_reflexive,is_symmetric,is_anti_symmetric,is_transitive,%
+is_metadata_tag,is_class_level,instance_of},%
+%    \end{macrocode}
+%
+% We define a few second-class keywords.
+%    \begin{macrocode}
+morekeywords=[2]{EXACT,RELATED,NARROW,RELATED,deprecated,true,false},
+%    \end{macrocode}
+%
+% Comments start by a exclamation point (!).
+%    \begin{macrocode}
+morecomment=[l]!,%
+%    \end{macrocode}
+%
+% Strings are delimited by double quotes.
+%    \begin{macrocode}
+morestring=[b]",%
+%    \end{macrocode}
+%
+% Lastly, frame headers and cross-references are delimited by square
+% brackets.
+%    \begin{macrocode}
+moredelim=[s][emphstyle]{\[}{\]}%
+}[keywords,comments,strings]
+%    \end{macrocode}
+%
+% \Finale
+\endinput

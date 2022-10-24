@@ -1,0 +1,12 @@
+latex/*.aux
+latex/*.fdb_latexmk
+latex/*.fls
+latex/*.glo
+latex/*.idx
+latex/*.ilg
+latex/*.ind
+latex/*.log
+latex/*.out
+latex/*.pdf
+latex/*.sty
+latex/*.toc
