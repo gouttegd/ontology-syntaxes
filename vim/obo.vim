@@ -75,5 +75,5 @@ hi def link oboSynonymScope Special
 hi def link oboMiscKeyword Special
 hi def link oboRelationShip Preproc
 
-# Done
+" Done
 let b:current_syntax = "obo"
