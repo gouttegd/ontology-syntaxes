@@ -32,7 +32,7 @@ syn keyword oboStanzaTag id name is_anonymous alt_id def comment subset
 
 " Constructs found in a OBO tag line
 syn match oboTermIdentifier /[a-zA-Z]\+\(:\|_\)[0-9a-zA-Z_]\+/
-syn match oboCommentedIdentifier / ! .\+$/
+syn match oboCommentedIdentifier / ! .\+/
 syn region oboCrossReference start=/\[/ end=/\]/ contains=oboTermIdentifier
 syn region oboLiteralString start=/"/ end=/"/
 
